@@ -1,0 +1,34 @@
+{
+  "name": "genericmarketplace",
+  "version": "1.0.0",
+  "description": "Generic Market Place Smart Contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diego-c22/GenericMarketPlace.git"
+  },
+  "keywords": [
+    "Solidity",
+    "Ethereum",
+    "Polygon",
+    "Blockchain",
+    "Binance"
+  ],
+  "author": "Diego Cortes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Diego-c22/GenericMarketPlace/issues"
+  },
+  "homepage": "https://github.com/Diego-c22/GenericMarketPlace#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "@openzeppelin/contracts": "^4.8.0",
+    "hardhat": "^2.12.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
