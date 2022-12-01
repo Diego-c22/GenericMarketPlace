@@ -5,22 +5,23 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 const hre = require("hardhat");
+const fs = require("fs");
+const path = require("path");
+
+const argsPath = path.join(path.resolve("./"), "arguments");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+  const Market = await hre.ethers.getContractFactory("MarketPlace");
+  const market = await Market.deploy();
+  await market.deployed();
 
-  const lockedAmount = hre.ethers.utils.parseEther("1");
+  console.log(`Market: ${market.address}`);
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const ERC721 = await hre.ethers.getContractFactory("ERC721Royalty");
+  const erc721 = await ERC721.deploy("MarketCollection", "MKC");
+  await erc721.deployed();
 
-  await lock.deployed();
-
-  console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  console.log(`ERC721: ${erc721.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -29,3 +30,12 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+const saveArguments = (args, subfx) => {
+  const pathFile = path.join(
+    argsPath,
+    subfx ? `${subfx}.js` : path.basename(__filename)
+  );
+  const data = `module.exports = ${JSON.stringify(args)}`;
+  fs.writeFileSync(pathFile, data);
+};
