@@ -2,7 +2,6 @@ require("dotenv").config({
   path: `./.env${process.env.ENV ? "." + process.env.ENV : ""}`,
 });
 require("@nomicfoundation/hardhat-toolbox");
-require("@openzeppelin/hardhat-upgrades");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
